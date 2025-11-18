@@ -15,7 +15,9 @@
 GitHub 的安全掃描機制偵測到並阻止了推送。
 
 暴露的 API Key：
-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
+sk-proj-d5OcFz...（已遮蔽）
+
+⚠️ 請到 OpenAI 平台查看並刪除以 sk-proj-d5OcFz 開頭的 API Key
 
 ========================================
 
@@ -38,7 +40,7 @@ sk-proj-d5OcFz_LgCi_z1-mRvrlxWhRmRiCyB4Grk_LzHX_uqY62kdJtUwPz78GsiI47mh91EdBALdq
 
 1. 前往：https://platform.openai.com/api-keys
 2. 登入你的 OpenAI 帳號
-3. 找到這個 API Key（sk-proj-d5OcFz...）
+3. 找到以 sk-proj-d5OcFz 開頭的 API Key
 4. 點擊「Delete」或「Revoke」刪除它
 5. 確認刪除
 
@@ -111,7 +113,7 @@ Mac/Linux:
 請確認以下步驟都已完成：
 
 □ 已登入 OpenAI 平台
-□ 已刪除舊的 API Key（sk-proj-d5OcFz...）
+□ 已刪除舊的 API Key（以 sk-proj-d5OcFz 開頭）
 □ 已建立新的 API Key
 □ 已複製並保存新的 API Key
 □ 已設定環境變數（或在程式碼中設定）
