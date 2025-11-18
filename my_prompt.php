@@ -90,6 +90,10 @@ curl_setopt_array($ch, [
         'Authorization: Bearer ' . $apiKey
     ],
     CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE),
+    // ⚠️ 臨時停用 SSL 驗證（僅供測試，正式環境請移除）
+    // 如需永久修復，請執行：修復_SSL_證書.bat
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_SSL_VERIFYHOST => false,
 ]);
 
 $result = curl_exec($ch);
