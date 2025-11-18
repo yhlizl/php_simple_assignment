@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>檔案位置和手動啟動說明</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f7fb;
+      line-height: 1.8;
+    }
+    h1 { color: #4f46e5; border-bottom: 3px solid #4f46e5; padding-bottom: 10px; }
+    h2 { color: #4f46e5; background: #e0e7ff; padding: 10px 15px; border-radius: 8px; margin-top: 30px; }
+    .section {
+      background: white;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .folder-structure {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      border-left: 4px solid #4f46e5;
+      margin: 15px 0;
+    }
+    .folder-structure div {
+      margin: 5px 0;
+      padding-left: 20px;
+    }
+    .folder { color: #d97706; font-weight: bold; }
+    .file { color: #059669; }
+    .important { color: #dc2626; font-weight: bold; }
+    .step {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+    }
+    .step-number {
+      display: inline-block;
+      background: #22c55e;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .warning {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+    }
+    .success {
+      background: #d1fae5;
+      border-left: 4px solid #10b981;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+    }
+    .code {
+      background: #1f2937;
+      color: #10b981;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+    .highlight {
+      background: yellow;
+      padding: 2px 5px;
+      font-weight: bold;
+    }
+    ul { line-height: 2; }
+    .button {
+      display: inline-block;
+      background: #4f46e5;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 10px 5px;
+    }
+    .button:hover { background: #4338ca; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background: #4f46e5;
+      color: white;
+    }
+    tr:nth-child(even) { background: #f9fafb; }
+  </style>
+</head>
+<body>
+  <h1>📁 檔案位置和手動啟動說明</h1>
+
+  <div class="section">
+    <h2>❓ 最常見的問題</h2>
+    <div class="warning">
+      <strong>Q: 檔案要放在哪裡？Server 要放到哪？</strong><br>
+      <strong>A: 所有檔案都放在<span class="highlight">同一個資料夾</span>中！不需要移動任何檔案！</strong>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📂 正確的檔案結構</h2>
+    
+    <p><strong>所有檔案都在同一個資料夾中：</strong></p>
+    
+    <div class="folder-structure">
+      <div class="folder">📂 你的專案資料夾（例如：教育輔導工具）</div>
+      <div class="file">├── 📄 index.html ← 前端網頁（主程式）</div>
+      <div class="file">├── 📄 app.py ← Python 後端伺服器</div>
+      <div class="file">├── 📄 my_prompt.php ← PHP 後端伺服器</div>
+      <div class="file">├── 📄 config.js ← 配置檔案</div>
+      <div class="file">├── 📄 test_backend.html ← 測試工具</div>
+      <div class="file">├── 📄 requirements.txt ← Python 套件清單</div>
+      <div class="file">├── 📄 start_python.bat ← Python 啟動腳本</div>
+      <div class="file">├── 📄 start_php.bat ← PHP 啟動腳本</div>
+      <div class="file">├── 📄 README.md ← 說明文件</div>
+      <div class="file">└── 📄 ... 其他檔案</div>
+    </div>
+
+    <div class="warning">
+      <strong>⚠️ 重要提醒：</strong>
+      <ul>
+        <li>❌ 不要移動任何檔案到其他資料夾</li>
+        <li>❌ 不要分開放置檔案</li>
+        <li>✅ 所有檔案必須在同一個資料夾中</li>
+        <li>✅ 資料夾可以放在任何地方（桌面、文件夾等）</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📍 推薦的資料夾位置</h2>
+    
+    <table>
+      <tr>
+        <th>位置</th>
+        <th>路徑範例</th>
+        <th>說明</th>
+      </tr>
+      <tr>
+        <td>✅ 桌面</td>
+        <td>C:\Users\你的名字\Desktop\教育輔導工具</td>
+        <td>最方便，容易找到</td>
+      </tr>
+      <tr>
+        <td>✅ 文件夾</td>
+        <td>C:\Users\你的名字\Documents\教育輔導工具</td>
+        <td>適合長期使用</td>
+      </tr>
+      <tr>
+        <td>✅ 自訂位置</td>
+        <td>D:\我的專案\教育輔導工具</td>
+        <td>任何你方便的地方</td>
+      </tr>
+      <tr>
+        <td>❌ Program Files</td>
+        <td>C:\Program Files\...</td>
+        <td>需要管理員權限，不推薦</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>🚀 手動啟動 Python 版本（推薦）</h2>
+
+    <div class="step">
+      <span class="step-number">1</span>
+      <strong>開啟命令提示字元</strong>
+      <ul>
+        <li>方法 1：按 Win + R，輸入 <code>cmd</code>，按 Enter</li>
+        <li>方法 2：在專案資料夾中，按住 Shift + 右鍵，選擇「在此處開啟命令視窗」</li>
+        <li>方法 3：在資料夾的網址列輸入 <code>cmd</code>，按 Enter</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <span class="step-number">2</span>
+      <strong>切換到專案資料夾</strong>
+      <div class="code">cd "C:\你的專案資料夾路徑"</div>
+      <p>例如：</p>
+      <div class="code">cd "C:\Users\John\Desktop\教育輔導工具"</div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">3</span>
+      <strong>安裝 Python 套件（第一次使用）</strong>
+      <div class="code">pip install -r requirements.txt</div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">4</span>
+      <strong>啟動 Python 伺服器</strong>
+      <div class="code">python app.py</div>
+      <p>或：</p>
+      <div class="code">python3 app.py</div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">5</span>
+      <strong>開啟瀏覽器</strong>
+      <p>在瀏覽器網址列輸入：</p>
+      <div class="code">http://localhost:8787</div>
+    </div>
+
+    <div class="success">
+      ✅ 完成！現在可以使用了！
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔧 手動啟動 PHP 版本</h2>
+
+    <div class="step">
+      <span class="step-number">1</span>
+      <strong>修改配置檔案</strong>
+      <p>用記事本開啟 <code>config.js</code>，找到第 10 行：</p>
+      <div class="code">BACKEND: 'python',</div>
+      <p>改成：</p>
+      <div class="code">BACKEND: 'php',</div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">2</span>
+      <strong>開啟命令提示字元並切換到專案資料夾</strong>
+      <p>（同 Python 版本的步驟 1 和 2）</p>
+    </div>
+
+    <div class="step">
+      <span class="step-number">3</span>
+      <strong>啟動 PHP 伺服器</strong>
+      <div class="code">php -S localhost:8000</div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">4</span>
+      <strong>開啟瀏覽器</strong>
+      <p>在瀏覽器網址列輸入：</p>
+      <div class="code">http://localhost:8000/index.html</div>
+    </div>
+
+    <div class="success">
+      ✅ 完成！
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>❓ 常見問題</h2>
+
+    <h3>Q1: 為什麼關閉命令提示字元後，網頁就不能用了？</h3>
+    <p><strong>A:</strong> 因為伺服器必須保持運行！</p>
+    <ul>
+      <li>不要關閉命令提示字元視窗</li>
+      <li>可以最小化視窗放在背景執行</li>
+      <li>使用完畢後再關閉</li>
+    </ul>
+
+    <h3>Q2: 每次都要手動啟動嗎？</h3>
+    <p><strong>A:</strong> 是的，每次使用前都要啟動伺服器</p>
+    <ul>
+      <li>可以建立桌面捷徑方便啟動</li>
+      <li>或使用 start_python.bat / start_php.bat（如果能用的話）</li>
+    </ul>
+
+    <h3>Q3: 如何停止伺服器？</h3>
+    <p><strong>A:</strong> 在命令提示字元視窗按 <code>Ctrl + C</code></p>
+
+    <h3>Q4: 找不到 python 或 php 命令？</h3>
+    <p><strong>A:</strong> 表示沒有安裝或沒有加入 PATH</p>
+    <ul>
+      <li>Python: 重新安裝，記得勾選「Add Python to PATH」</li>
+      <li>PHP: 需要先安裝 XAMPP 或獨立安裝 PHP</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📝 快速參考</h2>
+    
+    <h3>Python 版本：</h3>
+    <div class="code">
+cd "專案資料夾"<br>
+python app.py<br>
+瀏覽器開啟：http://localhost:8787
+    </div>
+
+    <h3>PHP 版本：</h3>
+    <div class="code">
+cd "專案資料夾"<br>
+php -S localhost:8000<br>
+瀏覽器開啟：http://localhost:8000/index.html
+    </div>
+
+    <h3>停止伺服器：</h3>
+    <div class="code">Ctrl + C</div>
+  </div>
+
+  <div class="section">
+    <h2>📚 更多說明</h2>
+    <ul>
+      <li>📄 <strong>手動啟動指南.txt</strong> - 詳細的文字版說明</li>
+      <li>📄 <strong>README.md</strong> - 完整使用說明</li>
+      <li>📄 <strong>最簡單的安裝方式.txt</strong> - 3 步驟安裝指南</li>
+      <li>📄 <strong>test_backend.html</strong> - 後端測試工具</li>
+    </ul>
+  </div>
+
+  <div class="success" style="text-align: center; margin-top: 30px;">
+    <h3>🎉 記住：所有檔案都在同一個資料夾中！</h3>
+    <p>不需要移動任何檔案，直接在專案資料夾中啟動伺服器即可！</p>
+  </div>
+</body>
+</html>
+
