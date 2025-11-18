@@ -1,5 +1,9 @@
 <?php
 // my_prompt.php
+// 關閉錯誤顯示，避免 HTML 錯誤訊息
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
+
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -26,7 +30,7 @@ if (!$input || !isset($input['profile']) || trim($input['profile']) === '') {
 $profile = trim($input['profile']);
 
 // 2. 設定 OpenAI API Key（請改成你自己的，建議放在環境變數或 config 檔）
-$apiKey = getenv('OPENAI_API_KEY') ?: 'your-openai-api-key-here';  // 優先使用環境變數
+$apiKey = getenv('OPENAI_API_KEY') ?: 'your-openai-api-key-here';
 
 // 檢查 API Key 是否已設定
 if ($apiKey === 'your-openai-api-key-here') {
