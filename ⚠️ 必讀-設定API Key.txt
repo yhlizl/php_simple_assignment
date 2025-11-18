@@ -68,7 +68,7 @@ API Key 就像是你的「密碼」，讓程式可以使用 OpenAI 的 AI 服務
 
 5. 重新啟動 PHP 伺服器：
    - 關閉命令提示字元視窗
-   - 重新執行：php -S localhost:8001
+   - 重新執行：php -S localhost:8000
 
 
 方法二：設定 Python 版本

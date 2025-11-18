@@ -67,7 +67,7 @@
 
 3. 重新啟動伺服器
    - 關閉命令提示字元視窗
-   - 重新執行：php -S localhost:8001
+   - 重新執行：php -S localhost:8000
 
 4. 重新整理網頁
    - 按 F5
@@ -81,9 +81,9 @@
 📋 目前狀態
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ PHP 伺服器：運行中（Port 8001）
+✅ PHP 伺服器：準備就緒（Port 8000）
 ✅ config.js：已更新為 PHP 後端
-✅ API 端點：http://localhost:8001/my_prompt.php
+✅ API 端點：my_prompt.php（相對路徑）
 ⚠️  API Key：尚未設定（需要你設定）
 
 
@@ -100,24 +100,19 @@
    cd "C:\你的專案資料夾路徑"
 
 3. 啟動 PHP 伺服器：
-   php -S localhost:8001
+   php -S localhost:8000
 
 4. 開啟瀏覽器：
-   http://localhost:8001/index.html
+   http://localhost:8000/index.html
 
 
-方法二：使用 .bat 檔案（需要修改）
+方法二：使用 .bat 檔案（推薦）
 ────────────────────────────────────
 
-start_php.bat 需要修改成 Port 8001：
+直接雙擊 start_php.bat 即可啟動！
 
-1. 用記事本開啟 start_php.bat
-2. 找到最後一行：
-   php -S localhost:8000
-3. 改成：
-   php -S localhost:8001
-4. 儲存
-5. 雙擊 start_php.bat 啟動
+或手動執行：
+php -S localhost:8000
 
 
 ========================================
@@ -125,7 +120,7 @@ start_php.bat 需要修改成 Port 8001：
 ⚠️ 重要提醒
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. Port 已改為 8001（不是 8000）
+1. Port 統一使用 8000（向下兼容舊版本）
 2. 必須設定 API Key 才能使用 AI 功能
 3. 伺服器必須保持運行（不要關閉命令提示字元）
 4. 每次使用前都要啟動伺服器
@@ -144,7 +139,7 @@ start_php.bat 需要修改成 Port 8001：
 
 方法二：直接使用
 ────────────────────────────────────
-1. 開啟 http://localhost:8001/index.html
+1. 開啟 http://localhost:8000/index.html
 2. 輸入測試資料
 3. 點擊「用 AI 產生建議」
 4. 查看是否成功
@@ -157,7 +152,7 @@ start_php.bat 需要修改成 Port 8001：
 
 檢查清單：
 □ PHP 伺服器是否在運行？
-□ Port 是否為 8001？
+□ Port 是否為 8000？
 □ API Key 是否已設定？
 □ API Key 是否正確？
 □ 網路連線是否正常？
@@ -188,11 +183,11 @@ start_php.bat 需要修改成 Port 8001：
 
 問題：Failed to fetch
 原因：Port 衝突 + 沒設定 API Key
-解決：改用 Port 8001 + 需要設定 API Key
+解決：統一使用 Port 8000 + 需要設定 API Key
 
 下一步：
 1. 設定 OpenAI API Key（必須）
-2. 重新啟動伺服器
+2. 啟動伺服器：php -S localhost:8000
 3. 測試功能
 
 ========================================

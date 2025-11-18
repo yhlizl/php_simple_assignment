@@ -12,7 +12,7 @@ const CONFIG = {
   
   // API 端點配置
   API_ENDPOINTS: {
-    python: 'http://localhost:8000/api/generate',
+    python: 'http://localhost:8787/api/generate',
     php: 'my_prompt.php'  // 使用相對路徑，兼容舊版本（需要 PHP 伺服器在同一 Port）
   },
   

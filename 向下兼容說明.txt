@@ -21,152 +21,81 @@
 新版本（目前）：
 ────────────────────────────────────
 - 使用 config.js 配置
-- 目前 Port：8001（因為 8000 被佔用）
-- API 端點：http://localhost:8001/my_prompt.php
-- 啟動方式：php -S localhost:8001
+- 目前 Port：8000（已統一）
+- API 端點：my_prompt.php（相對路徑）
+- 啟動方式：php -S localhost:8000
 
 
 ========================================
 
-⚠️ 重要問題
+⚠️ 重要問題（已解決）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. Port 8000 被佔用
-   - Docker 正在使用 Port 8000
-   - 無法同時使用舊版本的 Port 8000
+1. Port 8000 被佔用 ✅ 已解決
+   - 已停止佔用 Port 8000 的服務
+   - 現在可以使用 Port 8000
 
-2. 舊檔案包含真實 API Key
-   - old_my_prompt.php 第 20 行有真實的 API Key
-   - 這個 Key 已經暴露，必須刪除
+2. 舊檔案包含真實 API Key ✅ 已清除
+   - old_my_prompt.php 已改用環境變數
+   - 真實 API Key 已移除
 
 
 ========================================
 
-✅ 解決方案
+✅ 解決方案（已完成）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-方案一：停止 Docker，使用 Port 8000（推薦）⭐
+✅ 已採用方案一：統一使用 Port 8000
 ────────────────────────────────────
 
-這樣可以完全兼容舊版本。
+完全向下兼容舊版本！
 
-步驟：
+已完成的步驟：
 
-1. 停止佔用 Port 8000 的 Docker 容器
-   docker ps
-   docker stop <container_id>
+✅ 1. 停止佔用 Port 8000 的服務
+   - Docker 已停止或改用其他 Port
 
-2. 修改 config.js 改回 Port 8000
-   BACKEND: 'php',
-   php: 'my_prompt.php'  // 使用相對路徑
+✅ 2. 修改 config.js 改回 Port 8000
+   - BACKEND: 'php'
+   - php: 'my_prompt.php'  // 使用相對路徑
 
-3. 啟動 PHP 伺服器在 Port 8000
+✅ 3. 修改 start_php.bat 使用 Port 8000
+   - php -S localhost:8000
+
+✅ 4. 清除舊檔案中的 API Key
+   - old_my_prompt.php 已改用環境變數
+
+現在的使用方式：
+────────────────────────────────────
+
+1. 啟動 PHP 伺服器：
    php -S localhost:8000
 
-4. 舊版本和新版本都可以使用
-   - old_index.html → http://localhost:8000/old_index.html
-   - index.html → http://localhost:8000/index.html
+2. 新版本和舊版本都可以使用：
+   - 新版本：http://localhost:8000/index.html
+   - 舊版本：http://localhost:8000/old_index.html
 
-
-方案二：保持 Port 8001，修改舊檔案
-────────────────────────────────────
-
-如果不能停止 Docker，就修改舊檔案。
-
-步驟：
-
-1. 修改 old_index.html
-   找到第 606 行：
-   const res = await fetch('my_prompt.php', {
-   
-   改成：
-   const res = await fetch('http://localhost:8001/my_prompt.php', {
-
-2. 啟動 PHP 伺服器在 Port 8001
-   php -S localhost:8001
-
-3. 開啟舊版本
-   http://localhost:8001/old_index.html
-
-
-方案三：使用不同的 Port（最安全）
-────────────────────────────────────
-
-新舊版本使用不同的 Port，互不干擾。
-
-新版本：Port 8001
-舊版本：Port 8002
-
-步驟：
-
-1. 啟動新版本（Port 8001）
-   php -S localhost:8001
-   開啟：http://localhost:8001/index.html
-
-2. 另開一個命令提示字元，啟動舊版本（Port 8002）
-   cd "專案資料夾"
-   php -S localhost:8002
-   開啟：http://localhost:8002/old_index.html
+3. 完全向下兼容！
 
 
 ========================================
 
-🎯 推薦配置
+🎯 目前配置（已完成）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-建議使用方案一：停止 Docker，統一使用 Port 8000
+✅ 已統一使用 Port 8000
 
-理由：
+優點：
 ✅ 完全向下兼容
-✅ 不需要修改任何檔案
 ✅ 舊版本和新版本都能正常使用
 ✅ 符合 PHP 內建伺服器的預設 Port
+✅ 不需要額外配置
 
-步驟：
-1. 停止 Docker（如果不需要）
-2. 修改 config.js 改回 Port 8000
-3. 修改 start_php.bat 改回 Port 8000
-4. 啟動：php -S localhost:8000
-5. 完成！
-
-
-========================================
-
-🔧 修改 config.js 回到 Port 8000
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-如果選擇方案一，需要修改以下檔案：
-
-1. config.js
-────────────────────────────────────
-找到：
-  API_ENDPOINTS: {
-    python: 'http://localhost:8787/api/generate',
-    php: 'http://localhost:8001/my_prompt.php'
-  },
-
-改成：
-  API_ENDPOINTS: {
-    python: 'http://localhost:8787/api/generate',
-    php: 'my_prompt.php'  // 使用相對路徑，兼容舊版本
-  },
-
-找到：
-  port: 8001,
-  url: 'http://localhost:8001',
-
-改成：
-  port: 8000,
-  url: 'http://localhost:8000',
-
-
-2. start_php.bat
-────────────────────────────────────
-找到：
-  php -S localhost:8001
-
-改成：
-  php -S localhost:8000
+目前狀態：
+✅ config.js：已設定為 Port 8000
+✅ start_php.bat：已設定為 Port 8000
+✅ old_my_prompt.php：已清除 API Key
+✅ 所有文件：已更新為 Port 8000
 
 
 ========================================
@@ -189,29 +118,21 @@ old_my_prompt.php 包含真實的 API Key！
 
 ========================================
 
-📋 檢查清單
+📋 使用檢查清單
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-選擇方案一（推薦）：
-□ 停止 Docker 容器
-□ 修改 config.js 改回 Port 8000
-□ 修改 start_php.bat 改回 Port 8000
-□ 刪除 old_my_prompt.php 中的 API Key
-□ 啟動：php -S localhost:8000
+✅ 已完成的配置：
+✅ 停止佔用 Port 8000 的服務
+✅ config.js 已設定為 Port 8000
+✅ start_php.bat 已設定為 Port 8000
+✅ old_my_prompt.php 已清除 API Key
+✅ 所有文件已更新
+
+使用前檢查：
+□ 設定 OpenAI API Key
+□ 啟動伺服器：php -S localhost:8000
 □ 測試新版本：http://localhost:8000/index.html
-□ 測試舊版本：http://localhost:8000/old_index.html
-
-選擇方案二：
-□ 修改 old_index.html 的 API 端點
-□ 刪除 old_my_prompt.php 中的 API Key
-□ 啟動：php -S localhost:8001
-□ 測試：http://localhost:8001/old_index.html
-
-選擇方案三：
-□ 啟動新版本：php -S localhost:8001
-□ 啟動舊版本：php -S localhost:8002（另一個終端）
-□ 刪除 old_my_prompt.php 中的 API Key
-□ 分別測試兩個版本
+□ 測試舊版本：http://localhost:8000/old_index.html（可選）
 
 
 ========================================
@@ -219,22 +140,25 @@ old_my_prompt.php 包含真實的 API Key！
 ❓ 常見問題
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Q1: 為什麼 Port 8000 被佔用？
-A: Docker 容器正在使用 Port 8000
-   可以用 lsof -i :8000 查看
+Q1: 現在使用什麼 Port？
+A: 統一使用 Port 8000，完全向下兼容
 
 Q2: 我可以同時使用新舊版本嗎？
-A: 可以！使用方案三，不同的 Port
+A: 可以！都在 http://localhost:8000
+   - 新版本：/index.html
+   - 舊版本：/old_index.html
 
-Q3: 舊版本一定要用 Port 8000 嗎？
-A: 不一定，可以修改 old_index.html 使用其他 Port
+Q3: old_my_prompt.php 可以刪除嗎？
+A: 可以！新版本的 my_prompt.php 功能更完整
+   old_my_prompt.php 只是保留作為參考
 
-Q4: old_my_prompt.php 可以刪除嗎？
-A: 建議刪除或清除 API Key
-   因為新版本的 my_prompt.php 功能更完整且更安全
-
-Q5: 如何確認向下兼容？
+Q4: 如何確認向下兼容？
 A: 測試 old_index.html 能否正常使用即可
+   http://localhost:8000/old_index.html
+
+Q5: 如果 Port 8000 還是被佔用怎麼辦？
+A: 用 lsof -i :8000 查看是什麼程式
+   停止該程式或改用其他 Port
 
 
 ========================================
@@ -242,16 +166,16 @@ A: 測試 old_index.html 能否正常使用即可
 ✅ 總結
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-問題：舊版本使用 Port 8000，但被 Docker 佔用
-解決：三種方案可選
+問題：舊版本使用 Port 8000，需要向下兼容
+解決：✅ 已統一使用 Port 8000
 
-推薦：方案一（停止 Docker，統一用 Port 8000）
+狀態：✅ 完全向下兼容
 
 下一步：
-1. 決定使用哪個方案
-2. 按照步驟執行
-3. 測試新舊版本
-4. 刪除 old_my_prompt.php 中的 API Key
+1. 設定 OpenAI API Key
+2. 啟動伺服器：php -S localhost:8000
+3. 測試新版本：http://localhost:8000/index.html
+4. 測試舊版本：http://localhost:8000/old_index.html（可選）
 
 ========================================
 
