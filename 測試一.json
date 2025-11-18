@@ -1,0 +1,8 @@
+{
+  "粗大動作": { "parent": "...", "teacher": "..." },
+  "精細動作": { "parent": "...", "teacher": "..." },
+  "認知":     { "parent": "...", "teacher": "..." },
+  "語言":     { "parent": "...", "teacher": "..." },
+  "社會情緒": { "parent": "...", "teacher": "..." },
+  "生活自理": { "parent": "...", "teacher": "..." }
+}

@@ -1,0 +1,114 @@
+========================================
+  如何上傳到 GitHub
+========================================
+
+方法一：使用自動腳本（推薦）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Windows 用戶：
+1. 確認已安裝 Git for Windows
+   下載：https://git-scm.com/download/win
+
+2. 雙擊執行：upload_to_github.bat
+
+3. 如果需要登入，請輸入 GitHub 帳號密碼
+
+
+Mac/Linux 用戶：
+1. 開啟終端機，切換到專案資料夾
+   cd /path/to/your/project
+
+2. 執行上傳腳本
+   chmod +x upload_to_github.sh
+   ./upload_to_github.sh
+
+3. 如果需要登入，請輸入 GitHub 帳號密碼
+
+
+方法二：手動執行命令
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+開啟終端機或命令提示字元，依序執行以下命令：
+
+1. 初始化 Git repository
+   git init
+
+2. 添加所有檔案
+   git add .
+
+3. 提交變更
+   git commit -m "Initial commit: 教育輔導建議小工具"
+
+4. 設定遠端 repository
+   git remote add origin https://github.com/yhlizl/php_simple_assignment.git
+
+5. 設定主分支
+   git branch -M main
+
+6. 推送到 GitHub
+   git push -u origin main --force
+
+
+方法三：使用 GitHub Desktop（最簡單）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. 下載並安裝 GitHub Desktop
+   https://desktop.github.com/
+
+2. 登入你的 GitHub 帳號
+
+3. 點選 File > Add Local Repository
+
+4. 選擇專案資料夾
+
+5. 點選 Publish repository
+
+6. 選擇 repository 名稱：php_simple_assignment
+
+7. 點選 Publish
+
+
+========================================
+
+⚠️  注意事項：
+
+1. 確認已安裝 Git
+   - Windows: https://git-scm.com/download/win
+   - Mac: 通常已預裝，或使用 Homebrew 安裝
+
+2. 如果 repository 已存在內容
+   - 使用 --force 會覆蓋遠端內容
+   - 請先備份重要資料
+
+3. 登入方式
+   - 新版 Git 可能需要使用 Personal Access Token
+   - 在 GitHub 設定中產生：Settings > Developer settings > Personal access tokens
+
+4. 檢查上傳結果
+   - 訪問：https://github.com/yhlizl/php_simple_assignment
+   - 確認所有檔案都已上傳
+
+========================================
+
+📁 應該上傳的檔案清單：
+
+✅ app.py
+✅ index.html
+✅ my_prompt.php
+✅ requirements.txt
+✅ README.md
+✅ .gitignore
+✅ .env.example
+✅ start_python.bat
+✅ start_php.bat
+✅ start.sh
+✅ check_setup.bat
+✅ upload_to_github.bat
+✅ upload_to_github.sh
+✅ 快速開始.txt
+✅ 如何上傳到GitHub.txt
+✅ 測試一.json
+✅ 測試二.json
+
+========================================
+

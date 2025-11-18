@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>教育輔導建議小工具 - 特教老師用</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --border: #e0e4f0;
+      --accent: #4f46e5;
+      --accent-soft: #e0e7ff;
+      --text-main: #111827;
+      --text-sub: #6b7280;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .title-block h1 {
+      margin: 0 0 6px;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .title-block p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-left: 6px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+    }
+
+    .btn[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text-sub);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover:not([disabled]) {
+      background: #f9fafb;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(79, 70, 229, 0.3);
+    }
+
+    .btn-primary:hover:not([disabled]) {
+      background: #4338ca;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.35);
+    }
+
+    .btn:active:not([disabled]) {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .status-text {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    /* 卡片 */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span.icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      resize: vertical;
+      min-height: 90px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      font-family: inherit;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      background: #f9fafb;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background: #ffffff;
+    }
+
+    .helper-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .counter {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* 建議區塊 */
+    .suggestions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .suggestions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .toolbar {
+        align-items: flex-start;
+      }
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .section-tag {
+      font-size: 0.7rem;
+      color: var(--text-sub);
+      background: #f3f4ff;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+
+    .section-body {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 720px) {
+      .section-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section-column-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 3px;
+    }
+
+    .small-textarea {
+      min-height: 80px;
+    }
+
+    /* 匯出區塊 */
+    .export-card {
+      margin-top: 20px;
+    }
+
+    .export-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .export-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .export-note {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    .export-area {
+      min-height: 120px;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+    }
+
+    .export-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="title-block">
+      <h1>
+        教育輔導建議小工具
+        <span class="tag">特教老師用</span>
+      </h1>
+      <p>貼上「孩子能力現況」，可手動撰寫建議，也可用 AI 協助產生六大向度建議。</p>
+    </div>
+    <div class="toolbar">
+      <div class="badge">六大向度：粗大・精細・認知・語言・社會情緒・生活自理</div>
+      <button class="btn btn-outline" type="button" onclick="clearAll()">
+        🧹 清除全部內容
+      </button>
+      <span id="aiStatus" class="status-text"></span>
+    </div>
+  </header>
+
+  <!-- 能力現況輸入 -->
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <span class="icon">📄</span>
+        孩子能力現況整理（輸入區）
+      </div>
+      <button class="btn btn-primary" type="button" id="aiButton" onclick="generateWithAI()">
+        🤖 用 AI 產生建議
+      </button>
+    </div>
+    <p class="card-subtitle">
+      建議包含六大向度的說明，例如：<br>
+      「個案在粗大動作方面，需提升核心肌群，可持續訓練球類運動及平衡項目；精細動作方面……」
+    </p>
+    <textarea id="profileInput" placeholder="請在此貼上或整理孩子的能力現況描述（建議涵蓋六大向度），再按右上角「用 AI 產生建議」。"></textarea>
+    <div class="helper-row">
+      <span class="counter">字數：<span id="charCount">0</span></span>
+      <button class="btn btn-outline" type="button" onclick="document.getElementById('profileInput').value='';updateCharCount();">
+        清除能力現況
+      </button>
+    </div>
+  </section>
+
+  <!-- 六大向度 建議區塊 -->
+  <section class="suggestions-grid">
+    <!-- 粗大動作 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">粗大動作</div>
+        <div class="section-tag">姿勢控制・平衡・球類・跑跳</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="section-column-label">給家長的建議</div>
+          <textarea id="grossParent" class="small-textarea"></textarea>
+        </div>
+        <div>
+          <div class="section-column-label">給普班老師的建議</div>
+          <textarea id="grossTeacher" class="small-textarea"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 精細動作 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">精細動作</div>
+        <div class="section-tag">手部小肌肉・書寫・仿畫</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="section-column-label">給家長的建議</div>
+          <textarea id="fineParent" class="small-textarea"></textarea>
+        </div>
+        <div>
+          <div class="section-column-label">給普班老師的建議</div>
+          <textarea id="fineTeacher" class="small-textarea"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 認知 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">認知</div>
+        <div class="section-tag">概念・數概念・問題解決</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="section-column-label">給家長的建議</div>
+          <textarea id="cogParent" class="small-textarea"></textarea>
+        </div>
+        <div>
+          <div class="section-column-label">給普班老師的建議</div>
+          <textarea id="cogTeacher" class="small-textarea"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 語言 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">語言</div>
+        <div class="section-tag">理解・表達・構音</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="section-column-label">給家長的建議</div>
+          <textarea id="langParent" class="small-textarea"></textarea>
+        </div>
+        <div>
+          <div class="section-column-label">給普班老師的建議</div>
+          <textarea id="langTeacher" class="small-textarea"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 社會情緒 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">社會情緒</div>
+        <div class="section-tag">人際互動・情緒調節・規範</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="section-column-label">給家長的建議</div>
+          <textarea id="socParent" class="small-textarea"></textarea>
+        </div>
+        <div>
+          <div class="section-column-label">給普班老師的建議</div>
+          <textarea id="socTeacher" class="small-textarea"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生活自理 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">生活自理</div>
+        <div class="section-tag">如廁・盥洗・整理物品</div>
+      </div>
+      <div class="section-body">
+        <div>
+          <div class="section-column-label">給家長的建議</div>
+          <textarea id="adlsParent" class="small-textarea"></textarea>
+        </div>
+        <div>
+          <div class="section-column-label">給普班老師的建議</div>
+          <textarea id="adlsTeacher" class="small-textarea"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 匯出整理區 -->
+  <section class="card export-card">
+    <div class="export-header">
+      <div class="export-title">整理成報告文字（複製用）</div>
+      <div class="export-note">按下「生成整理結果」會把能力現況＋六大向度建議整理在一起，方便貼進 Word / IEP。</div>
+    </div>
+    <textarea id="exportOutput" class="export-area" placeholder="按下「生成整理結果」後，內容會顯示在這裡。"></textarea>
+    <div class="export-buttons">
+      <button class="btn btn-primary" type="button" onclick="generateExport()">
+        ✨ 生成整理結果
+      </button>
+      <button class="btn btn-outline" type="button" onclick="copyExport()">
+        📋 複製整理結果
+      </button>
+    </div>
+  </section>
+</div>
+
+<script>
+  const profileInput = document.getElementById('profileInput');
+  const charCount = document.getElementById('charCount');
+  const aiButton = document.getElementById('aiButton');
+  const aiStatus = document.getElementById('aiStatus');
+
+  function updateCharCount() {
+    charCount.textContent = profileInput.value.length;
+  }
+
+  profileInput.addEventListener('input', updateCharCount);
+  updateCharCount();
+
+  // 一鍵清除全部欄位
+  function clearAll() {
+    if (!confirm('確定要清除所有欄位內容嗎？')) return;
+    document.querySelectorAll('textarea').forEach(t => t.value = '');
+    updateCharCount();
+    aiStatus.textContent = '';
+  }
+
+  // 生成整理文字
+  function generateExport() {
+    const profile = document.getElementById('profileInput').value.trim();
+
+    const data = {
+      '粗大動作': {
+        parent: document.getElementById('grossParent').value.trim(),
+        teacher: document.getElementById('grossTeacher').value.trim()
+      },
+      '精細動作': {
+        parent: document.getElementById('fineParent').value.trim(),
+        teacher: document.getElementById('fineTeacher').value.trim()
+      },
+      '認知': {
+        parent: document.getElementById('cogParent').value.trim(),
+        teacher: document.getElementById('cogTeacher').value.trim()
+      },
+      '語言': {
+        parent: document.getElementById('langParent').value.trim(),
+        teacher: document.getElementById('langTeacher').value.trim()
+      },
+      '社會情緒': {
+        parent: document.getElementById('socParent').value.trim(),
+        teacher: document.getElementById('socTeacher').value.trim()
+      },
+      '生活自理': {
+        parent: document.getElementById('adlsParent').value.trim(),
+        teacher: document.getElementById('adlsTeacher').value.trim()
+      }
+    };
+
+    let lines = [];
+
+    if (profile) {
+      lines.push('【一、孩子能力現況】');
+      lines.push(profile);
+      lines.push('');
+    }
+
+    lines.push('【二、教育輔導建議】');
+
+    Object.keys(data).forEach((key, index) => {
+      const sec = data[key];
+      if (!sec.parent && !sec.teacher) return;
+
+      lines.push(`（${index + 1}）${key}`);
+      if (sec.parent) {
+        lines.push(`‧給家長的建議：${sec.parent}`);
+      }
+      if (sec.teacher) {
+        lines.push(`‧給普班老師的建議：${sec.teacher}`);
+      }
+      lines.push('');
+    });
+
+    document.getElementById('exportOutput').value = lines.join('\n');
+  }
+
+  // 複製整理結果
+  function copyExport() {
+    const output = document.getElementById('exportOutput');
+    if (!output.value.trim()) {
+      alert('目前尚未有整理結果，請先點「生成整理結果」。');
+      return;
+    }
+    output.select();
+    document.execCommand('copy');
+    alert('已將整理結果複製到剪貼簿！');
+  }
+
+  // 用 AI 產生建議（呼叫後端 Python API）
+  async function generateWithAI() {
+    const profile = profileInput.value.trim();
+    if (!profile) {
+      alert('請先在「孩子能力現況」輸入內容，再按「用 AI 產生建議」。');
+      return;
+    }
+
+    aiButton.disabled = true;
+    aiStatus.textContent = '🤖 正在向 AI 產生建議中，請稍候…';
+
+    try {
+      const res = await fetch('http://localhost:8787/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({ profile })
+      });
+
+      if (!res.ok) {
+        throw new Error('伺服器回應錯誤狀態：' + res.status);
+      }
+
+      const data = await res.json();
+      if (!data || !data.success || !data.suggestions) {
+        throw new Error(data && data.message ? data.message : '回傳格式不正確。');
+      }
+
+      const s = data.suggestions;
+
+      // 安全取值的小工具
+      function get(path, fallback = '') {
+        return path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), s) ?? fallback;
+      }
+
+      document.getElementById('grossParent').value  = get('粗大動作.parent');
+      document.getElementById('grossTeacher').value = get('粗大動作.teacher');
+
+      document.getElementById('fineParent').value   = get('精細動作.parent');
+      document.getElementById('fineTeacher').value  = get('精細動作.teacher');
+
+      document.getElementById('cogParent').value    = get('認知.parent');
+      document.getElementById('cogTeacher').value   = get('認知.teacher');
+
+      document.getElementById('langParent').value   = get('語言.parent');
+      document.getElementById('langTeacher').value  = get('語言.teacher');
+
+      document.getElementById('socParent').value    = get('社會情緒.parent');
+      document.getElementById('socTeacher').value   = get('社會情緒.teacher');
+
+      document.getElementById('adlsParent').value   = get('生活自理.parent');
+      document.getElementById('adlsTeacher').value  = get('生活自理.teacher');
+
+      aiStatus.textContent = '✅ 已由 AI 產生建議，可視需要再手動微調內容。';
+    } catch (err) {
+      console.error(err);
+      aiStatus.textContent = '❌ 產生失敗：' + err.message;
+      alert('產生建議時發生錯誤：' + err.message);
+    } finally {
+      aiButton.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
