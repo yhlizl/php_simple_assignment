@@ -8,12 +8,12 @@
 
 const CONFIG = {
   // 後端類型：'python' 或 'php'
-  BACKEND: 'python',
+  BACKEND: 'php',
   
   // API 端點配置
   API_ENDPOINTS: {
     python: 'http://localhost:8787/api/generate',
-    php: 'my_prompt.php'
+    php: 'http://localhost:8001/my_prompt.php'
   },
   
   // 取得當前使用的 API 端點
@@ -33,9 +33,9 @@ const CONFIG = {
     } else {
       return {
         name: 'PHP',
-        port: 8000,
-        url: 'http://localhost:8000',
-        startCommand: 'start_php.bat (Windows) 或 php -S localhost:8000'
+        port: 8001,
+        url: 'http://localhost:8001',
+        startCommand: 'start_php.bat (Windows) 或 php -S localhost:8001'
       };
     }
   }

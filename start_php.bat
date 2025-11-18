@@ -32,7 +32,7 @@ echo.
 
 echo 🚀 啟動伺服器...
 echo.
-echo 📍 請在瀏覽器開啟：http://localhost:8000/index.html
+echo 📍 請在瀏覽器開啟：http://localhost:8001/index.html
 echo.
 echo ⚠️  按 Ctrl+C 可停止伺服器
 echo.
@@ -40,7 +40,7 @@ echo ========================================
 echo.
 
 REM 啟動 PHP 內建伺服器
-php -S localhost:8000
+php -S localhost:8001
 
 pause
 
