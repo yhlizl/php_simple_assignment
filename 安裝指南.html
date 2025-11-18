@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教育輔導建議小工具 - 安裝指南</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f7fb;
+      color: #333;
+    }
+    h1 {
+      color: #4f46e5;
+      border-bottom: 3px solid #4f46e5;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #4f46e5;
+      margin-top: 30px;
+      background: #e0e7ff;
+      padding: 10px 15px;
+      border-radius: 8px;
+    }
+    .step {
+      background: white;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .step-number {
+      display: inline-block;
+      background: #4f46e5;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 35px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .warning {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+    }
+    .success {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+    }
+    .code {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+    }
+    .button {
+      display: inline-block;
+      background: #4f46e5;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 10px 5px;
+    }
+    .button:hover {
+      background: #4338ca;
+    }
+    ul {
+      line-height: 2;
+    }
+    .highlight {
+      background: yellow;
+      padding: 2px 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎓 教育輔導建議小工具 - 安裝指南</h1>
+  
+  <div class="success">
+    <strong>✅ 好消息！</strong> 安裝非常簡單，只需要 3 個步驟，大約 5 分鐘就能完成！
+  </div>
+
+  <h2>📋 安裝前準備</h2>
+  <div class="step">
+    <p>你需要準備：</p>
+    <ul>
+      <li>✅ 一台 Windows 電腦</li>
+      <li>✅ 網路連線</li>
+      <li>✅ OpenAI API Key（從 <a href="https://platform.openai.com/" target="_blank">OpenAI 官網</a>取得）</li>
+    </ul>
+  </div>
+
+  <h2>🚀 開始安裝</h2>
+
+  <div class="step">
+    <h3><span class="step-number">1</span>安裝 Python</h3>
+    <ol>
+      <li>前往 Python 官網：<a href="https://www.python.org/downloads/" target="_blank">https://www.python.org/downloads/</a></li>
+      <li>點擊黃色的「Download Python」按鈕</li>
+      <li>下載完成後，雙擊安裝檔案</li>
+    </ol>
+    
+    <div class="warning">
+      <strong>⚠️ 重要！</strong> 安裝時請務必勾選：<br>
+      <span class="highlight">☑ Add Python to PATH</span><br>
+      然後點擊「Install Now」
+    </div>
+    
+    <p>等待安裝完成，點擊「Close」</p>
+  </div>
+
+  <div class="step">
+    <h3><span class="step-number">2</span>設定 API Key</h3>
+    <ol>
+      <li>找到專案資料夾中的 <code>app.py</code> 檔案</li>
+      <li>用「記事本」開啟（右鍵 → 開啟檔案 → 記事本）</li>
+      <li>找到第 20 行，會看到：</li>
+    </ol>
+    
+    <div class="code">
+API_KEY = os.getenv('OPENAI_API_KEY', 'your-openai-api-key-here')
+    </div>
+    
+    <ol start="4">
+      <li>將 <code>'your-openai-api-key-here'</code> 替換成你的 OpenAI API Key</li>
+      <li>儲存檔案（Ctrl + S）</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <h3><span class="step-number">3</span>啟動程式</h3>
+    <ol>
+      <li>找到 <code>start_python.bat</code> 檔案</li>
+      <li>雙擊執行</li>
+      <li>會出現黑色視窗，顯示啟動訊息</li>
+      <li>打開瀏覽器（Chrome、Edge 等）</li>
+      <li>在網址列輸入：<code>http://localhost:8787</code></li>
+      <li>按 Enter</li>
+    </ol>
+    
+    <div class="success">
+      <strong>🎉 完成！</strong> 現在你應該可以看到程式介面了！
+    </div>
+  </div>
+
+  <h2>📖 使用說明</h2>
+  <div class="step">
+    <ol>
+      <li>在「孩子能力現況」欄位輸入描述</li>
+      <li>點擊「🤖 用 AI 產生建議」按鈕</li>
+      <li>等待 AI 自動填入六大向度建議</li>
+      <li>可以手動調整任何建議內容</li>
+      <li>點擊「✨ 生成整理結果」</li>
+      <li>點擊「📋 複製整理結果」貼到 Word</li>
+    </ol>
+  </div>
+
+  <h2>❓ 常見問題</h2>
+  
+  <div class="step">
+    <h4>Q: 雙擊 start_python.bat 後出現錯誤？</h4>
+    <p><strong>A:</strong> 確認 Python 安裝時有勾選「Add Python to PATH」。如果沒有，請重新安裝 Python。</p>
+  </div>
+
+  <div class="step">
+    <h4>Q: 瀏覽器打不開網頁？</h4>
+    <p><strong>A:</strong> 確認黑色視窗沒有關閉（程式還在執行中），並檢查網址是否正確。</p>
+  </div>
+
+  <div class="step">
+    <h4>Q: AI 產生建議失敗？</h4>
+    <p><strong>A:</strong> 檢查 API Key 是否正確設定、網路是否正常、OpenAI 帳號是否有額度。</p>
+  </div>
+
+  <div class="step">
+    <h4>Q: 如何停止程式？</h4>
+    <p><strong>A:</strong> 回到黑色視窗，按 Ctrl + C，或直接關閉視窗。</p>
+  </div>
+
+  <h2>📚 更多資源</h2>
+  <div class="step">
+    <p>如需更詳細的說明，請參考：</p>
+    <ul>
+      <li>📄 <strong>README.md</strong> - 完整使用說明</li>
+      <li>📄 <strong>最簡單的安裝方式.txt</strong> - 純文字版安裝指南</li>
+      <li>📄 <strong>XAMPP替代方案.txt</strong> - 其他安裝方式</li>
+      <li>📄 <strong>快速開始.txt</strong> - 快速開始指南</li>
+    </ul>
+  </div>
+
+  <div class="success" style="text-align: center; margin-top: 30px;">
+    <h3>🎉 祝你使用愉快！</h3>
+    <p>如有任何問題，請參考 README.md 的常見問題章節</p>
+  </div>
+</body>
+</html>
+
