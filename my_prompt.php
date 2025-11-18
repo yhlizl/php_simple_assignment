@@ -30,7 +30,7 @@ if (!$input || !isset($input['profile']) || trim($input['profile']) === '') {
 $profile = trim($input['profile']);
 
 // 2. 設定 OpenAI API Key（請改成你自己的，建議放在環境變數或 config 檔）
-$apiKey = getenv('OPENAI_API_KEY') ?: 'your-openai-api-key-here';
+$apiKey = getenv('OPENAI_API_KEY') ?: 'sk-proj-X9PQ2UBK3N2LoRNF-GWhMIqbiG_EGU8I-DoM6CYDM9RkjM45oYy6kir5r5MtdyNKGAHvzewA';
 
 // 檢查 API Key 是否已設定
 if ($apiKey === 'your-openai-api-key-here') {
