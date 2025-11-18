@@ -17,7 +17,7 @@
 ✅ 問題原因
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. Port 8000 被其他程式（Docker）佔用
+1. Port 8000 被其他程式（Docker）佔用（已解決）
 2. PHP 伺服器實際上沒有正常啟動
 3. config.js 設定的 Port 不正確
 4. 沒有設定 OpenAI API Key
@@ -27,17 +27,18 @@
 🔧 已修復的問題
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ 1. 改用 Port 8001
-   - 原本：Port 8000（被佔用）
-   - 現在：Port 8001（可用）
+✅ 1. 統一使用 Port 8000
+   - 停止佔用 Port 8000 的服務
+   - 所有配置統一使用 Port 8000
+   - 完全向下兼容舊版本
 
 ✅ 2. 更新 config.js
-   - PHP API 端點：http://localhost:8001/my_prompt.php
-   - PHP Port：8001
+   - PHP API 端點：my_prompt.php（相對路徑）
+   - PHP Port：8000
 
-✅ 3. PHP 伺服器已啟動
-   - 命令：php -S localhost:8001 -t .
-   - 狀態：✅ 運行中
+✅ 3. PHP 伺服器配置
+   - 命令：php -S localhost:8000
+   - 狀態：準備就緒
 
 ✅ 4. 建立 API Key 設定指南
    - ⚠️ 必讀-設定API Key.txt
