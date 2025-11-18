@@ -20,9 +20,33 @@
 
 ---
 
+## 📁 檔案說明
+
+### 核心程式
+- **index.html** - 主要網頁介面
+- **app.py** - Python Flask 後端（Port 8787）
+- **my_prompt.php** - PHP 後端（Port 8000）
+- **config.js** - 後端配置檔案（可切換 Python/PHP）
+- **requirements.txt** - Python 依賴套件清單
+
+### 測試與工具
+- **test_backend.html** - 後端測試工具 ⭐ 推薦使用
+- **check_setup.bat** - 環境檢查工具（Windows）
+
+### 說明文件
+- **README.md** - 本檔案
+- **最簡單的安裝方式.txt** - 3 步驟安裝指南
+- **安裝指南.html** - 圖文版安裝指南
+- **如何切換後端.txt** - Python/PHP 後端切換說明
+- **XAMPP替代方案.txt** - XAMPP 安裝問題解決方案
+
+---
+
 ## 🚀 Windows 使用說明
 
 本工具提供兩種後端選擇：**Python (推薦)** 或 **PHP**
+
+💡 **新功能**：現在可以透過 `config.js` 輕鬆切換後端，詳見「如何切換後端.txt」
 
 ---
 
@@ -308,6 +332,26 @@ Python 版本更簡單，不需要 XAMPP：
 - 使用 WampServer 或 Laragon（XAMPP 替代品）
 
 詳細說明請參考：`XAMPP替代方案.txt`
+
+### Q9: 如何測試後端是否正常運作？
+
+**方法一：使用測試工具（推薦）**
+1. 用瀏覽器開啟 `test_backend.html`
+2. 點擊對應的測試按鈕
+3. 查看測試結果
+
+**方法二：手動測試**
+1. 啟動後端伺服器
+2. 開啟 `index.html`
+3. 輸入測試資料並點擊「用 AI 產生建議」
+
+### Q10: 如何切換 Python 和 PHP 後端？
+
+編輯 `config.js` 檔案，修改第 10 行：
+- Python: `BACKEND: 'python',`
+- PHP: `BACKEND: 'php',`
+
+詳細說明請參考：`如何切換後端.txt`
 
 ---
 

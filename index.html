@@ -5,6 +5,9 @@
   <title>教育輔導建議小工具 - 特教老師用</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- 配置檔案 -->
+  <script src="config.js"></script>
+
   <style>
     :root {
       --bg: #f5f7fb;
@@ -340,6 +343,9 @@
     </div>
     <div class="toolbar">
       <div class="badge">六大向度：粗大・精細・認知・語言・社會情緒・生活自理</div>
+      <div class="badge" id="backendBadge" style="background: #f0fdf4; color: #15803d;">
+        後端：載入中...
+      </div>
       <button class="btn btn-outline" type="button" onclick="clearAll()">
         🧹 清除全部內容
       </button>
@@ -591,7 +597,20 @@
     alert('已將整理結果複製到剪貼簿！');
   }
 
-  // 用 AI 產生建議（呼叫後端 Python API）
+  // 初始化：顯示後端資訊
+  function initBackendInfo() {
+    const backendInfo = CONFIG.getBackendInfo();
+    const badge = document.getElementById('backendBadge');
+    badge.textContent = `後端：${backendInfo.name} (Port ${backendInfo.port})`;
+    console.log('✅ 後端配置已載入:', backendInfo);
+  }
+
+  // 頁面載入時初始化
+  window.addEventListener('DOMContentLoaded', () => {
+    initBackendInfo();
+  });
+
+  // 用 AI 產生建議（呼叫後端 API）
   async function generateWithAI() {
     const profile = profileInput.value.trim();
     if (!profile) {
@@ -600,10 +619,14 @@
     }
 
     aiButton.disabled = true;
-    aiStatus.textContent = '🤖 正在向 AI 產生建議中，請稍候…';
+    const backendInfo = CONFIG.getBackendInfo();
+    aiStatus.textContent = `🤖 正在向 AI 產生建議中（使用 ${backendInfo.name}），請稍候…`;
 
     try {
-      const res = await fetch('http://localhost:8787/api/generate', {
+      const apiEndpoint = CONFIG.getApiEndpoint();
+      console.log('📡 呼叫 API:', apiEndpoint);
+
+      const res = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8'
@@ -647,9 +670,17 @@
 
       aiStatus.textContent = '✅ 已由 AI 產生建議，可視需要再手動微調內容。';
     } catch (err) {
-      console.error(err);
+      console.error('❌ API 錯誤:', err);
+      const backendInfo = CONFIG.getBackendInfo();
+      let errorMsg = `產生建議時發生錯誤：${err.message}\n\n`;
+      errorMsg += `請確認：\n`;
+      errorMsg += `1. 後端伺服器已啟動（${backendInfo.startCommand}）\n`;
+      errorMsg += `2. 後端 URL: ${backendInfo.url}\n`;
+      errorMsg += `3. API Key 已正確設定\n`;
+      errorMsg += `4. 網路連線正常`;
+
       aiStatus.textContent = '❌ 產生失敗：' + err.message;
-      alert('產生建議時發生錯誤：' + err.message);
+      alert(errorMsg);
     } finally {
       aiButton.disabled = false;
     }

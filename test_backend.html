@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>後端測試工具</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f7fb;
+    }
+    h1 { color: #4f46e5; }
+    .test-section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover { background: #4338ca; }
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .success {
+      background: #d4edda;
+      border: 1px solid #28a745;
+      color: #155724;
+    }
+    .error {
+      background: #f8d7da;
+      border: 1px solid #dc3545;
+      color: #721c24;
+    }
+    .info {
+      background: #d1ecf1;
+      border: 1px solid #17a2b8;
+      color: #0c5460;
+    }
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 後端測試工具</h1>
+  
+  <div class="test-section">
+    <h2>測試資料</h2>
+    <textarea id="testProfile" placeholder="輸入測試用的孩子能力現況...">個案在粗大動作方面，需提升核心肌群，可持續訓練球類運動及平衡項目；精細動作方面，手部小肌肉控制尚可，但書寫時容易疲累；認知方面，數概念需加強；語言方面，表達能力良好但構音需改善；社會情緒方面，需要協助情緒調節；生活自理方面，如廁和盥洗能力良好。</textarea>
+  </div>
+
+  <div class="test-section">
+    <h2>1️⃣ 測試 Python 後端 (Port 8787)</h2>
+    <button onclick="testPython()">測試 Python API</button>
+    <button onclick="checkPythonHealth()">檢查 Python 伺服器狀態</button>
+    <div id="pythonResult"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>2️⃣ 測試 PHP 後端 (Port 8000)</h2>
+    <button onclick="testPHP()">測試 PHP API</button>
+    <div id="phpResult"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>3️⃣ 配置檢查</h2>
+    <button onclick="checkConfig()">檢查 config.js 配置</button>
+    <div id="configResult"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    // 測試 Python 後端
+    async function testPython() {
+      const resultDiv = document.getElementById('pythonResult');
+      resultDiv.innerHTML = '<div class="info">⏳ 測試中...</div>';
+      
+      const profile = document.getElementById('testProfile').value.trim();
+      if (!profile) {
+        resultDiv.innerHTML = '<div class="error">❌ 請先輸入測試資料</div>';
+        return;
+      }
+
+      try {
+        const startTime = Date.now();
+        const res = await fetch('http://localhost:8787/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profile })
+        });
+        const elapsed = Date.now() - startTime;
+
+        const data = await res.json();
+        
+        if (data.success) {
+          resultDiv.innerHTML = `
+            <div class="success">
+✅ Python 後端測試成功！
+⏱️  回應時間: ${elapsed}ms
+📊 回傳資料:
+${JSON.stringify(data.suggestions, null, 2)}
+            </div>
+          `;
+        } else {
+          resultDiv.innerHTML = `
+            <div class="error">
+❌ API 回傳錯誤
+訊息: ${data.message || '未知錯誤'}
+            </div>
+          `;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `
+          <div class="error">
+❌ 連線失敗
+錯誤: ${err.message}
+
+請確認：
+1. Python 後端已啟動 (python3 app.py 或 start_python.bat)
+2. Port 8787 沒有被其他程式佔用
+3. API Key 已正確設定
+          </div>
+        `;
+      }
+    }
+
+    // 檢查 Python 伺服器健康狀態
+    async function checkPythonHealth() {
+      const resultDiv = document.getElementById('pythonResult');
+      resultDiv.innerHTML = '<div class="info">⏳ 檢查中...</div>';
+
+      try {
+        const res = await fetch('http://localhost:8787/', {
+          method: 'GET'
+        });
+        
+        if (res.ok) {
+          resultDiv.innerHTML = `
+            <div class="success">
+✅ Python 伺服器運行中
+狀態碼: ${res.status}
+URL: http://localhost:8787
+            </div>
+          `;
+        } else {
+          resultDiv.innerHTML = `
+            <div class="error">
+⚠️  伺服器回應異常
+狀態碼: ${res.status}
+            </div>
+          `;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `
+          <div class="error">
+❌ 無法連線到 Python 伺服器
+錯誤: ${err.message}
+
+請執行: python3 app.py 或 start_python.bat
+          </div>
+        `;
+      }
+    }
+
+    // 測試 PHP 後端
+    async function testPHP() {
+      const resultDiv = document.getElementById('phpResult');
+      resultDiv.innerHTML = '<div class="info">⏳ 測試中...</div>';
+      
+      const profile = document.getElementById('testProfile').value.trim();
+      if (!profile) {
+        resultDiv.innerHTML = '<div class="error">❌ 請先輸入測試資料</div>';
+        return;
+      }
+
+      try {
+        const startTime = Date.now();
+        const res = await fetch('http://localhost:8000/my_prompt.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profile })
+        });
+        const elapsed = Date.now() - startTime;
+
+        const data = await res.json();
+        
+        if (data.success) {
+          resultDiv.innerHTML = `
+            <div class="success">
+✅ PHP 後端測試成功！
+⏱️  回應時間: ${elapsed}ms
+📊 回傳資料:
+${JSON.stringify(data.suggestions, null, 2)}
+            </div>
+          `;
+        } else {
+          resultDiv.innerHTML = `
+            <div class="error">
+❌ API 回傳錯誤
+訊息: ${data.message || '未知錯誤'}
+            </div>
+          `;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `
+          <div class="error">
+❌ 連線失敗
+錯誤: ${err.message}
+
+請確認：
+1. PHP 後端已啟動 (php -S localhost:8000 或 start_php.bat)
+2. Port 8000 沒有被其他程式佔用
+3. API Key 已正確設定在 my_prompt.php
+4. PHP 已安裝 cURL 擴充功能
+          </div>
+        `;
+      }
+    }
+
+    // 檢查配置
+    function checkConfig() {
+      const resultDiv = document.getElementById('configResult');
+      const backendInfo = CONFIG.getBackendInfo();
+      
+      resultDiv.innerHTML = `
+        <div class="info">
+📋 當前配置:
+
+後端類型: ${CONFIG.BACKEND}
+後端名稱: ${backendInfo.name}
+Port: ${backendInfo.port}
+URL: ${backendInfo.url}
+API 端點: ${CONFIG.getApiEndpoint()}
+啟動命令: ${backendInfo.startCommand}
+
+💡 如需切換後端，請編輯 config.js 檔案
+        </div>
+      `;
+    }
+
+    // 頁面載入時自動檢查配置
+    window.addEventListener('DOMContentLoaded', () => {
+      checkConfig();
+    });
+  </script>
+</body>
+</html>
+

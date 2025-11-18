@@ -1,6 +1,15 @@
 <?php
 // my_prompt.php
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// 處理 OPTIONS 預檢請求
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 // 1. 讀取前端送來的 JSON
 $raw = file_get_contents('php://input');
@@ -17,7 +26,16 @@ if (!$input || !isset($input['profile']) || trim($input['profile']) === '') {
 $profile = trim($input['profile']);
 
 // 2. 設定 OpenAI API Key（請改成你自己的，建議放在環境變數或 config 檔）
-$apiKey = 'your-openai-api-key-here';  // TODO: 換成你的金鑰
+$apiKey = getenv('OPENAI_API_KEY') ?: 'your-openai-api-key-here';  // 優先使用環境變數
+
+// 檢查 API Key 是否已設定
+if ($apiKey === 'your-openai-api-key-here') {
+    echo json_encode([
+        'success' => false,
+        'message' => '請先設定 OpenAI API Key（編輯 my_prompt.php 第 28 行）'
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 // 3. 組出要丟給 OpenAI 的訊息
 $systemPrompt = <<<SYS
@@ -50,7 +68,7 @@ $userPrompt = "孩子能力現況如下：\n" . $profile;
 $url = 'https://api.openai.com/v1/chat/completions';
 
 $payload = [
-    'model' => 'gpt-4.1-mini', // 或 'gpt-4o-mini' ，依你帳號可用的模型調整
+    'model' => 'gpt-4o-mini', // OpenAI 模型名稱
     'messages' => [
         ['role' => 'system', 'content' => $systemPrompt],
         ['role' => 'user', 'content' => $userPrompt]
