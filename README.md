@@ -294,6 +294,21 @@ pip install -r requirements.txt
 2. 在該電腦上重複安裝步驟
 3. 或者將 `app.py` 中的 `host='0.0.0.0'` 改為區域網路 IP，讓其他電腦連線
 
+### Q8: XAMPP 安裝不起來怎麼辦？
+
+**最佳解決方案：改用 Python 版本！**
+
+Python 版本更簡單，不需要 XAMPP：
+1. 安裝 Python（https://www.python.org/downloads/）
+2. 雙擊 `start_python.bat`
+3. 完成！
+
+**其他替代方案：**
+- 獨立安裝 PHP（不需要 XAMPP）
+- 使用 WampServer 或 Laragon（XAMPP 替代品）
+
+詳細說明請參考：`XAMPP替代方案.txt`
+
 ---
 
 ## 📁 檔案說明
