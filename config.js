@@ -12,7 +12,7 @@ const CONFIG = {
   
   // API 端點配置
   API_ENDPOINTS: {
-    python: 'http://localhost:8787/api/generate',
+    python: 'http://localhost:8000/api/generate',
     php: 'my_prompt.php'  // 使用相對路徑，兼容舊版本（需要 PHP 伺服器在同一 Port）
   },
   
@@ -33,9 +33,9 @@ const CONFIG = {
     } else {
       return {
         name: 'PHP',
-        port: 8001,  // 如果 Port 8000 被佔用，使用 8001；否則建議改回 8000 以兼容舊版本
-        url: 'http://localhost:8001',
-        startCommand: 'start_php.bat (Windows) 或 php -S localhost:8001'
+        port: 8000,
+        url: 'http://localhost:8000',
+        startCommand: 'start_php.bat (Windows) 或 php -S localhost:8000'
       };
     }
   }
